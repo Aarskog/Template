@@ -1,0 +1,142 @@
+
+
+
+\section*{Problem 1 - Attitude Kinematics and Kinetics}
+
+\subsection*{Problem 1.1} 
+\subsubsection*{1. Euler angles}
+In \cite{Fossen2011} Euler angles and body-fixed angular velocity are written as
+\begin{equation}\label{eq:using}
+    \mathbf{\Theta}_{nb} = 
+    \begin{bmatrix}
+    \phi \\ \theta \\ \psi
+    \end{bmatrix}
+    \quad
+    \text{and}
+    \quad
+    \boldsymbol{\omega}_{b/n}^b =
+    \begin{bmatrix}
+   p \\ q \\ r
+    \end{bmatrix}
+\end{equation}
+
+Using equation (2.26) and (2.28) in \cite{Fossen2011} and equation (\ref{eq:using}) we get
+\begin{equation}\label{eq:see}
+    \dot{\mathbf{\Theta}}_{nb} = \mathbf{T}_\Theta (\mathbf{\Theta}_{nb})\boldsymbol{\omega}_{b/n}^b
+     = 
+     \begin{bmatrix}
+     1 & s\phi t\theta & c\phi t\theta \\
+     0 & c\phi & -s\phi \\
+     0 & \frac{s\phi}{c\theta} & \frac{c\phi}{c\theta}
+     \end{bmatrix}
+    \begin{bmatrix}
+   p \\ q \\ r
+    \end{bmatrix}
+\end{equation}
+we can see from equation (\ref{eq:see}) that $\mathbf{Q} = \mathbf{T}_\Theta (\mathbf{\Theta}_{nb})$ and $\mathbf{T}(\boldsymbol{Q,\omega}) = \mathbf{T}_\Theta (\mathbf{\Theta}_{nb})\boldsymbol{\omega}_{b/n}^b$
+
+
+
+
+
+
+
+\subsubsection*{2. Unit quaternions}
+
+In equation (2.54) in \cite{Fossen2011} the unit quaternions are expressed in the form 
+\begin{equation}
+    \mathbf{q}=
+    \begin{bmatrix}
+        \eta \\ \varepsilon_1 \\ \varepsilon_2 \\ \varepsilon_3
+    \end{bmatrix}
+    =
+    \begin{bmatrix}
+            \cos\left(\frac{\beta}{2}\right) \\ \boldsymbol{\lambda} \sin\left(\frac{\beta}{2}\right)
+    \end{bmatrix}
+    , \quad \boldsymbol{\lambda} = \pm \frac{\boldsymbol{\varepsilon}}{\sqrt{\boldsymbol{\varepsilon}^T\boldsymbol{\varepsilon}}}, \quad 0 \le \beta \le 2\pi
+\end{equation}
+
+Again we look in \cite{Fossen2011} at equation (2.62) and (2.63) and we get the angular velocity transformation
+\begin{equation}\label{eq:see2}
+    \dot{\boldsymbol{q}} = \boldsymbol{T}_q(\boldsymbol{q})\boldsymbol{\omega}_{b/n}^b
+    = \frac{1}{2}
+    \begin{bmatrix}
+    -\varepsilon_1 & -\varepsilon_2 & -\varepsilon_3\\
+    \eta & -\varepsilon_3 & \varepsilon_2 \\
+    \varepsilon_3 & \eta & -\varepsilon_1 \\
+    -\varepsilon_2 & \varepsilon_1 & \eta
+    \end{bmatrix}
+    \begin{bmatrix}
+   p \\ q \\ r
+    \end{bmatrix}
+\end{equation}
+From equation (\ref{eq:see2}) we see that $\boldsymbol{Q} =\boldsymbol{T}_q(\boldsymbol{q})$ and $\mathbf{T}(\boldsymbol{Q,\omega}) = \boldsymbol{T}_q(\boldsymbol{q})\boldsymbol{\omega}_{b/n}^b$ 
+
+
+
+
+
+
+
+\subsubsection*{3. Rotation matrix}
+Equation (2.33) in \cite{Fossen2011} gives
+\begin{equation}
+    \dot{\boldsymbol{R}}_n^b = \boldsymbol{R}_n^b\boldsymbol{S(\boldsymbol{\omega}_{b/n}^b)}
+\end{equation}
+where $\boldsymbol{R}_n^b(\boldsymbol{\Theta}_{nb})$ are the product of the three principal rotations: $\boldsymbol{R}_n^b = \boldsymbol{R}_{z,\psi}\boldsymbol{R}_{y,\theta}\boldsymbol{R}_{x,\phi}$. From this we get $\boldsymbol{Q} = \boldsymbol{R}_n^b$ and $\boldsymbol{T}(\boldsymbol{Q},\boldsymbol{\omega}) = \boldsymbol{R}_n^b\boldsymbol{S(\boldsymbol{\omega}_{b/n}^b)}$
+
+
+
+
+
+
+
+\subsection*{Problem 1.2}
+\subsubsection*{Euler angles}
+When using Euler angles, $\boldsymbol{Q}$ is not defined for $\theta = 90^o$. This is very unwanted since we are trying to control a satellite. Euler angles are intuitive to understand. 
+
+\subsubsection*{Quaternions}
+Here we don't have the same problem as with Euler angles when $\theta = 90^o$, but we have 4 parameters. Quaternions are more complicated to understand.  Quaternions are more stable and computationally faster. It is possible to make smooth rotations. 
+\subsubsection*{Rotation matrix}
+If a rotation matrix is used we will get 9 differential equations this means that it can be more difficult to compute. Round-off errors accumulate. 
+
+\subsection*{Problem 1.3}
+If the inertial frame is always below the satellite the Newton Euler EOM will be:\\From eq. (3.21) in \cite{Fossen2011}
+\begin{equation}
+    \begin{bmatrix}
+        m\boldsymbol{I}_{3\text{x}3} & \boldsymbol{0}_{3\text{x}3}\\
+        \boldsymbol{0}_{3\text{x}3} & \boldsymbol{I}_g
+    \end{bmatrix}
+    \begin{bmatrix}
+        \boldsymbol{0} \\ \dot{\boldsymbol{\omega}}_{b/n}^b
+    \end{bmatrix}
+    +
+    \begin{bmatrix}
+        m\boldsymbol{S}(\boldsymbol{\omega}_{b/n}^b) &  \boldsymbol{0}_{3\text{x}3} \\
+         \boldsymbol{0}_{3\text{x}3} & -\boldsymbol{S}(\boldsymbol{I}_g\boldsymbol{\omega}_{b/n}^b)
+    \end{bmatrix}
+        \begin{bmatrix}
+        \boldsymbol{0} \\ \boldsymbol{\omega}_{b/n}^b
+    \end{bmatrix}
+    =
+    \begin{bmatrix}
+    \boldsymbol{f}_g^b \\ \boldsymbol{m}_g^b
+    \end{bmatrix}
+\end{equation}
+
+This means the translational part of the equations are zero and the remaining equation is
+\begin{subequation}
+\begin{equation}
+    \boldsymbol{I}_g\dot{\boldsymbol{\omega}}_{b/n}^b -\boldsymbol{S}(\boldsymbol{I}_g\boldsymbol{\omega}_{b/n}^b)\boldsymbol{\omega}_{b/n}^b = \boldsymbol{m}_g^b
+\end{equation}
+which is the same as 
+\begin{equation}
+	\label{eq:kinetics}
+	\boldsymbol{I}_{CG} \dot{\boldsymbol{\omega}} - (\boldsymbol{I}_{CG} \boldsymbol{\omega}) \times \boldsymbol{\omega} = \boldsymbol{\tau}                                                                 
+\end{equation}
+\end{subequation}
+
+
+which is the equation we wanted.
+
+% Note that \mathbf can be used for bold letters in math mode (within equations and dollar signs). \boldsymbol is used to get bold greek letters.  
