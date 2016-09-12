@@ -7,6 +7,8 @@
 \usepackage{graphicx}
 \usepackage{caption}
 \usepackage{subcaption}
+\usepackage{cancel}
+
 
 \newcommand{\figref}[1]{\figurename~\ref{#1}}
 
@@ -27,7 +29,7 @@
 
 \input{problem1}	% Use "\include" instead of "\input" if you want the section to start on a new page. "problem1" is a tex file included at this location in the document. It is possible to answer the whole assignment in this file (paste everything from "problem1.tex" here), but that restricts the readability. Therefore, one file is created for each problem.
 \input{problem2}
-\input{problem3}
+\include{problem3}
 \input{problem4}
  
  https://en.wikipedia.org/wiki/Quaternions_and_spatial_rotation#Comparison_with_other_representations_of_rotations

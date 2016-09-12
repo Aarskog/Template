@@ -3,29 +3,63 @@
 The Lyapunov function candidate and the PD-controller can be written as 
 
 \begin{equation}
-\begin{aligned}\label{eq:yes}
-	V &= \frac{1}{2} \boldsymbol{\omega}^{\top} \mathbf{I}_{CG} \boldsymbol{\omega} + \frac{1}{2} \tilde{\Theta}^{\top} \mathbf{K}_p \tilde{\Theta} \\
-	\boldsymbol{\tau} &= -\mathbf{K}_d \boldsymbol{\omega} -\mathbf{T}_{\Theta}^{\top}(\Theta) \mathbf{K}_p \tilde{\Theta}
-\end{aligned}
+\label{eq:yes}
+	V &= \frac{1}{2} \boldsymbol{\omega}^{\top} \mathbf{I}_{CG} \boldsymbol{\omega} + \frac{1}{2} \tilde{\boldsymbol{\Theta}}^{\top} \mathbf{K}_p \boldsymbol{\tilde{\Theta}}
+\end{equation}
+
+\begin{equation}\label{eq:insert}
+\boldsymbol{\tau} &= -\mathbf{K}_d \boldsymbol{\omega} -\mathbf{T}_{\Theta}^{\top}(\Theta) \mathbf{K}_p \tilde{\boldsymbol{\Theta}}
 \end{equation}
 
 
 Since $\boldsymbol{I}_{CG}$, $\boldsymbol{K}_d$ and $\boldsymbol{K}_p$ are symmetric, $\dot{V}$ becomes
 \begin{equation} \label{eq:as}
-\dot{V} = \boldsymbol{\omega}^T\boldsymbol{I}_{CG}\dot{\boldsymbol{\omega}} + \tilde{\Theta}^T\boldsymbol{K}_p\dot{\Theta}
+\dot{V} = \boldsymbol{\omega}^T\boldsymbol{I}_{CG}\dot{\boldsymbol{\omega}} + \tilde{\boldsymbol{\Theta}}^T\boldsymbol{K}_p\boldsymbol{\dot{\Theta}}
 \end{equation}
 
 Inserting  (\ref{eq:kinetics}) into (\ref{eq:as})
 
-\begin{equation}
-\dot{V} = \boldsymbol{\omega}^T\left( \tau + (\boldsymbol{I}_{CG}\boldsymbol{\omega})\times \omega \right)
+\begin{equation}\label{eq:into}
+\dot{V} = \boldsymbol{\omega}^T\left( \boldsymbol{\tau} + (\boldsymbol{I}_{CG}\boldsymbol{\omega})\times \boldsymbol{\omega} \right) + \tilde{\boldsymbol{\Theta}}^T\boldsymbol{K}_p\boldsymbol{\dot{\Theta}}
 \end{equation}
 
+and inserting (\ref{eq:insert}) into (\ref{eq:into})
+
+\begin{equation}
+\dot{V} = \boldsymbol{\omega}^T\left(  -\mathbf{K}_d \boldsymbol{\omega} -\mathbf{T}_{\Theta}^{\top}(\Theta) \mathbf{K}_p \tilde{\boldsymbol{\Theta}} + (\boldsymbol{I}_{CG}\boldsymbol{\omega})\times \boldsymbol{\omega} \right) + \tilde{\boldsymbol{\Theta}}^T\boldsymbol{K}_p\boldsymbol{\dot{\Theta}}
+\end{equation}
+
+From equation (\ref{eq:see}) we know that $\mathbf{T}_{\Theta}(\Theta)\boldsymbol{\omega} =\boldsymbol{\dot{\Theta}}$
+
+\begin{equation}
+\begin{align}
+    \dot{V} &=   -\boldsymbol{\omega}^T\mathbf{K}_d \boldsymbol{\omega} -\boldsymbol{\omega}^T\mathbf{T}_{\Theta}^{\top}(\Theta) \mathbf{K}_p \tilde{\boldsymbol{\Theta}} + \boldsymbol{\omega}^T(\boldsymbol{I}_{CG}\boldsymbol{\omega})\times \boldsymbol{\omega}  + \tilde{\boldsymbol{\Theta}}^T\boldsymbol{K}_p\boldsymbol{\dot{\Theta}}\\
+    &= -\boldsymbol{\omega}^T\mathbf{K}_d \boldsymbol{\omega} - \cancel{\dot{\boldsymbol{\Theta}} \boldsymbol{K}_p \tilde{\boldsymbol{\Theta}}} + \boldsymbol{\omega}^T(\boldsymbol{I}_{CG}\boldsymbol{\omega})\times \boldsymbol{\omega}  + \cancel{\tilde{\boldsymbol{\Theta}}^T\boldsymbol{K}_p\boldsymbol{\dot{\Theta}}}\\
+    &=-\boldsymbol{\omega}^T\mathbf{K}_d \boldsymbol{\omega} + \boldsymbol{\omega}^T(\boldsymbol{I}_{CG}\boldsymbol{\omega})\times \boldsymbol{\omega}
+\end{align}
+\end{equation}
+
+For a function to be a Lyapunov function it must satisfy $V(x)>0$ and $\dot{V}(x)\le 0$. Therefore, $\boldsymbol{K}_p>0$ and $\boldsymbol{K}_d > 0$ 
+
 \subsection*{Problem 2.2}
-Answer Problem 2.2 here.
+
+If we assume that $V$ is a true Lyapunov function candidate we know that \\$V(t)\le V(0)$ since $\dot{V} \le 0$. This means that $\boldsymbol{\omega}$ must be bounded. If we calculate the second derivative of $V$ we get $\ddot{V} = -\boldsymbol{K_d\omega}< 0$, since $\boldsymbol{\omega}$ is bounded, $\dot{V}$ converges, and therefore $\boldsymbol{\omega}$ must converge. \\
+I can't say anything about the error $\boldsymbol{\tilde{\Theta}}$ since it is not in $\dot{V}$. 
 
 \subsection*{Problem 2.3}
-Answer Problem 2.3 here.
+The set $\Omega$ is found by setting $\dot{V}=0$. $\dot{V}$ is zero when $\omega = 0$. $\Omega$ is then 
+\begin{equation}
+\Omega = \{ (x\epsilon \mathbb{R},\boldsymbol{\omega}=0) \}
+\end{equation}
+
+this means that
+
+\begin{equation}
+\boldsymbol{I}_{CG}\dot{\boldsymbol{\omega}} = -\boldsymbol{T}_{\Theta}^T(\Theta)\boldsymbol{K}_p\tilde{\boldsymbol{\Theta}}
+\end{equation}
+
+which means that $\tilde{\boldsymbol{\Theta}}= \boldsymbol{\Theta}- \boldsymbol{\Theta}_d = 0$,
+from this we now know that the equilibrium point is $(\boldsymbol{\omega},\boldsymbol{\Theta}) = (0,\boldsymbol{\Theta_d})$, which are the only point in the largest set in $\Omega$. The point is GAS. 
 
 \subsection*{Problem 2.4}
 Answer Problem 2.4 here. Figures can be inserted as:

@@ -1,10 +1,50 @@
 \section*{Problem 3 - Attitude Control using Unit Quaternions}
-Answer Problem 3 in this file.
 
 \subsection*{Problem 3.1}
-Answer Problem 3.1 here. The definition of the quaternion error is written as:
+
+The quaternion error can be expressed as
+
+\begin{equation}\label{eq:eh}
+\begin{align}
+\tilde{\boldsymbol{q}} &= \begin{bmatrix} \tilde{\eta} \\ \tilde{\boldsymbol{\epsilon}} \end{bmatrix} =\overline{\boldsymbol{q}_d} \otimes \boldsymbol{q} = 
+\begin{bmatrix}
+\eta_d\eta + \varepsilon_{1d}\varepsilon_{1}+\varepsilon_{2d}\varepsilon_{2}+\varepsilon_{3d}\varepsilon_{3}\\
+\eta_d\varepsilon_{1}- \varepsilon_{1d}\eta-\varepsilon_{2d}\varepsilon_{3}+\varepsilon_{3d}\varepsilon_{2} \\
+\eta_d\varepsilon_{2}+ \varepsilon_{1d}\varepsilon_{3}-\varepsilon_{2d}\eta - \varepsilon_{3d}\varepsilon_{1}\\
+\eta_d\varepsilon_{3}- \varepsilon_{1d}\varepsilon_{2}+\varepsilon_{2d}\varepsilon_{1}-\varepsilon_{3d}\eta\\
+\end{bmatrix}\\
+&=
+\begin{bmatrix}
+\eta_d\eta + \boldsymbol{\varepsilon_{d}^T\varepsilon_{}}\\
+\eta_d\boldsymbol{\varepsilon_{}} - \eta\boldsymbol{\varepsilon_{d}} + 
+\begin{bmatrix}
+-\varepsilon_{2d}\varepsilon_{3}+\varepsilon_{3d}\varepsilon_{2}\\
+\varepsilon_{1d}\varepsilon_{3}-\varepsilon_{3d}\varepsilon_{1}\\
+-\varepsilon_{1d}\varepsilon_{2}+\varepsilon_{2d}\varepsilon_{1}
+\end{bmatrix}
+\end{bmatrix}\\
+&=
+\begin{bmatrix}
+\eta_d\eta + \boldsymbol{\varepsilon_{d}^T\varepsilon_{}}\\
+\eta_d\boldsymbol{\varepsilon_{}} - \eta\boldsymbol{\varepsilon_{d}} - \boldsymbol{S}(\boldsymbol{\varepsilon_{d}})\boldsymbol{\varepsilon_{}}
+\end{bmatrix}
+\end{align}
+\end{equation}
+
+When $\boldsymbol{q}=\boldsymbol{q_d}$ equation (\ref{eq:eh}) becomes
 \begin{equation}
-\tilde{\mathbf{q}} = \begin{bmatrix} \tilde{\eta} \\ \tilde{\boldsymbol{\epsilon}} \end{bmatrix} =\overline{\mathbf{q}_d} \otimes \mathbf{q}
+\boldsymbol{\tilde{q}}=
+\begin{bmatrix}
+\eta^2_d+\varepsilon_{1d}^2+\varepsilon_{2d}^2+\varepsilon_{3d}^2\\
+\eta_d\boldsymbol{\varepsilon_{d}}-\eta_d\boldsymbol{\varepsilon_{d}}-\boldsymbol{0}
+\end{bmatrix}
+=
+\begin{bmatrix}
+\eta^2_d+\varepsilon_{1d}^2+\varepsilon_{2d}^2+\varepsilon_{3d}^2\\
+0\\
+0\\
+0\\
+\end{bmatrix}
 \end{equation}
 
 \subsection*{Problem 3.2}
