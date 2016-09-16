@@ -35,7 +35,9 @@ From equation (\ref{eq:see}) we know that $\mathbf{T}_{\Theta}(\Theta)\boldsymbo
 \begin{align}
     \dot{V} &=   -\boldsymbol{\omega}^T\mathbf{K}_d \boldsymbol{\omega} -\boldsymbol{\omega}^T\mathbf{T}_{\Theta}^{\top}(\Theta) \mathbf{K}_p \tilde{\boldsymbol{\Theta}} + \boldsymbol{\omega}^T(\boldsymbol{I}_{CG}\boldsymbol{\omega})\times \boldsymbol{\omega}  + \tilde{\boldsymbol{\Theta}}^T\boldsymbol{K}_p\boldsymbol{\dot{\Theta}}\\
     &= -\boldsymbol{\omega}^T\mathbf{K}_d \boldsymbol{\omega} - \cancel{\dot{\boldsymbol{\Theta}} \boldsymbol{K}_p \tilde{\boldsymbol{\Theta}}} + \boldsymbol{\omega}^T(\boldsymbol{I}_{CG}\boldsymbol{\omega})\times \boldsymbol{\omega}  + \cancel{\tilde{\boldsymbol{\Theta}}^T\boldsymbol{K}_p\boldsymbol{\dot{\Theta}}}\\
-    &=-\boldsymbol{\omega}^T\mathbf{K}_d \boldsymbol{\omega} + \boldsymbol{\omega}^T(\boldsymbol{I}_{CG}\boldsymbol{\omega})\times \boldsymbol{\omega}
+    &=-\boldsymbol{\omega}^T\mathbf{K}_d \boldsymbol{\omega} + \boldsymbol{\omega}^T(\boldsymbol{I}_{CG}\boldsymbol{\omega})\times \boldsymbol{\omega}\\
+    &= -\boldsymbol{\omega}^T\mathbf{K}_d \boldsymbol{\omega} + (\boldsymbol{I}_{CG}\boldsymbol{\omega})^T\boldsymbol{\omega}\times \boldsymbol{\omega}
+     \\&=-\boldsymbol{\omega}^T\mathbf{K}_d \boldsymbol{\omega}
 \end{align}
 \end{equation}
 
@@ -43,8 +45,8 @@ For a function to be a Lyapunov function it must satisfy $V(x)>0$ and $\dot{V}(x
 
 \subsection*{Problem 2.2}
 
-If we assume that $V$ is a true Lyapunov function candidate we know that \\$V(t)\le V(0)$ since $\dot{V} \le 0$. This means that $\boldsymbol{\omega}$ must be bounded. If we calculate the second derivative of $V$ we get $\ddot{V} = -\boldsymbol{K_d\omega}< 0$, since $\boldsymbol{\omega}$ is bounded, $\dot{V}$ converges, and therefore $\boldsymbol{\omega}$ must converge. \\
-I can't say anything about the error $\boldsymbol{\tilde{\Theta}}$ since it is not in $\dot{V}$. 
+If we assume that $V$ is a true Lyapunov function candidate we know that \\$V(t)\le V(0)$ and $\dot{V} \le 0$. This means that $\boldsymbol{\omega}$ must be bounded. If we calculate the second derivative of $V$ we get $\ddot{V} = -\boldsymbol{K_d\omega}< 0$, since $\boldsymbol{\omega}$ is bounded, $\dot{V}$ converges, and therefore $\boldsymbol{\omega}$ must converge.
+I can't say anything about the error $\boldsymbol{\tilde{\Theta}}$ %since it is not in $\dot{V}$. 
 
 \subsection*{Problem 2.3}
 The set $\Omega$ is found by setting $\dot{V}=0$. $\dot{V}$ is zero when $\omega = 0$. $\Omega$ is then 
@@ -62,28 +64,28 @@ which means that $\tilde{\boldsymbol{\Theta}}= \boldsymbol{\Theta}- \boldsymbol{
 from this we now know that the equilibrium point is $(\boldsymbol{\omega},\boldsymbol{\Theta}) = (0,\boldsymbol{\Theta_d})$, which are the only point in the largest set in $\Omega$. The point is GAS. 
 
 \subsection*{Problem 2.4}
-Answer Problem 2.4 here. Figures can be inserted as:
-\begin{figure}[ht]
-	\centering
-	\includegraphics[width=0.7\textwidth]{fig1} % Filename is "fig1.png" and must be located in the same folder as this file. 
-	\caption{Figure of something useful.}
-	\label{fig:fig1}
-\end{figure}
+%Answer Problem 2.4 here. Figures can be inserted as:
+%\begin{figure}[ht]
+%	\centering
+%	\includegraphics[width=0.7\textwidth]{1000eulerangles} % Filename is "fig1.png" and must be located in the same folder as this file. 
+%	\caption{Figure of something useful.}
+%	\label{fig:fig1}
+%\end{figure}
 
-You can now refer to this figure as \figref{fig:fig1}. You can also insert figures side-by-side:
+
 \begin{figure}[ht]
+	 \caption{We can see here that when we are close enough to zero, the system is easy to control, but when we set the initial $\theta$ to more than $60^\circ$ we are starting to get unwanted behavior. This is because of the singularity in $\theta = 90^\circ$}\label{fig:2}
 	\centering
-	\begin{subfigure}[b]{0.45\textwidth}
-		\includegraphics[width=\textwidth]{fig1}
-		\caption{Fig 2a)}
+	\begin{subfigure}[b]{0.40\textwidth}
+		\includegraphics[width=\textwidth]{1000eulerangles}
+		\caption{Here is a plot where the initial angles are zero and $\boldsymbol{K}_d = \boldsymbol{K}_p=1000\boldsymbol{I}_{3\times 3}$}
 		\label{fig:2a}
 	\end{subfigure}
 	~ %add desired spacing between images, e. g. ~, \quad, \qquad, \hfill etc. 
 	%(or a blank line to force the subfigure onto a new line)
-	\begin{subfigure}[b]{0.45\textwidth}
-		\includegraphics[width=\textwidth]{fig1}
-		\caption{Fig 2b)}
+	\begin{subfigure}[b]{0.40\textwidth}
+		\includegraphics[width=\textwidth]{1000euleranglesunstable}
+		\caption{In this plot the same $\boldsymbol{K_d}$ and $\boldsymbol{K_p}$ is used, but $\theta=65^\circ$ and the two other angles are zero}
 		\label{fig:2b}
 	\end{subfigure}
-	\caption{Caption for both figures}\label{fig:2}
 \end{figure}
